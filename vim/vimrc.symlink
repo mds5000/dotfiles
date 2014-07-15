@@ -1,4 +1,160 @@
+" M. Sunderlands  .vimrc
+" Created: May 15, 2012
+"
+" Revision History:
+"  - 15 May 2012, rewrote .vimrc from scratch
+"  - 14 Nov 2012, added coffee script autocompile
+"  - 26 Apr 2013, added Windows-specific changes
+"  - 25 Oct 2013, added minibufexp
+
+" Call pathogen to load plugins in ./bundle directory
+call pathogen#infect()
+
+"----------------------------------------------------------
+" OS-Specific
+"----------------------------------------------------------
+if has("win32")
+    set guifont=consolas:h10
+    set lsp=0
+    set backspace=2
+
+    " Get rid of the shitty windows keybindings
+    " Look in vimruntime/mswin.vim for others
+    nunmap <C-a>
+    "nunmap <C-x>
+    "nunmap <C-y>
+    "nunmap <C-v>
+endif
+"----------------------------------------------------------
+" General Configuration
+"----------------------------------------------------------
+" Set My default <leader>
+let mapleader = "\\"
+
+" Don't look back...
+set nocompatible
+
+" I plan on using a dark background
+set background=dark
+
+" clear any existing autocommands:
+autocmd!
+
+" History set to 250 lines 
+set history=250
+
+" Set WildMode/WildMenu, complete longest string, then
+" finish command on next tab.
+set wildmenu
+set wildmode=list:longest,full
+
+" Search as you type, and make it visible
+set incsearch
+set hlsearch
+" Use smartcase search
+set ignorecase
+set smartcase
+
+" Set highlighting
+highlight search guibg=Yellow guifg=Black
+
+" Don't store swap files, I never use them
+set noswapfile
+
+" Use the monokai theme
+colorscheme Monokai
+
+" Make backspace work nicely
+set backspace=indent,eol,start
+
+set hidden
+
+"----------------------------------------------------------
+" User Interface
+"----------------------------------------------------------
+
+" Avoid 'Press a key to continue' messages after extrn func
+"set shortmess=a
+" Show commands as they are typed
+set showcmd
+" Always show status line
+set laststatus=2
+
+" Status line: see vim-powerline
+set encoding=utf-8 " Necessary to show unicode glyphs
+set t_Co=256 " Necessary to explicitly tell powerline term
+             " Has color support 
+             
+" Highlight syntax
 syntax on
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+" Don't wrap lines
+set nowrap
+
+" Edit tab completion menu to show preview window
+set completeopt=menuone,longest,preview
+
+" Make the preview window 10 lines high by default
+let previewheight = 10
+
+"----------------------------------------------------------
+" Tabs and Such
+"----------------------------------------------------------
+set tabstop=4     " Tabs are 4-spaces wide
+set shiftwidth=4  " Number of spaces to use for >>, <<
+
+set smarttab      " Use shiftwidth spaces on newline
+set expandtab     " Expand inserted <TAB> chars into spaces
+set softtabstop=4 " Pressing tab or BS ins or dels 4 spaces
+
+set autoindent    " Copy indentation from previous line
+set smartindent   " Use syntax to indent correctly
+
+
+"----------------------------------------------------------
+" Key Mappings
+"----------------------------------------------------------
+" Shortcuts to start python interpreter
+" Run the current file
+nnoremap <F5> :!python %<CR>
+" Run the current file and enter interactive mode afterwords
+nnoremap <F6> :!python -i %<CR>
+
+" Shortcut to close the preview window
+"inoremap \q <ESC>:pc<CR>i
+nnoremap \q :pc
+
+" Turn line numbers on/off (TODO: make this a toggle)
+nnoremap \n :set number<CR>
+nnoremap \N :set nonumber<CR>
+
+
+
+"----------------------------------------------------------
+" Filetype Plugins
+"----------------------------------------------------------
+" Detect filetypes
+filetype on
+" Load plugins on detected filetypes
+filetype plugin on
+" Load smar indent on detected filetypes
+filetype indent on
+
+" Magic autocompletion for python files
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+
+" Automatically compile .coffee files on write
+au BufWritePost *.coffee silent CoffeeMake! | cwindow | redraw!
+
+
+"----------------------------------------------------------
+" Pluging Customization
+"----------------------------------------------------------
+" Have nerdtree use arrows instead of -|\
+let NERDTreeDirArrows=1
+" Open/Close NERDTree 
+nnoremap <leader>t :NERDTreeToggle<CR>
+
+nnoremap <leader>i :TagbarToggle<CR>
+

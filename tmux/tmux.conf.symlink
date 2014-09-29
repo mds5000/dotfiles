@@ -1,0 +1,73 @@
+# tmux configuration file
+#
+# Author: M. Sunderland
+# Date: Jan 11, 2013
+
+# Source the config, generated from vim-tmuxline
+source-file ~/.tmux/tmuxline.conf
+
+# C-b is annoying, I prefer C-a
+unbind C-b
+set-option -g prefix C-a
+
+# Give me 256 colors
+set -g default-terminal screen
+
+# Provide utf-8 support
+set-window-option -g utf8 on
+
+# Use C-a a for previous window
+bind-key C-a last-window
+
+# Increase the history... a lot...
+set -g history-limit 100000
+
+# Windows are automatically renamed
+set-window-option -g automatic-rename
+
+# Use VI key bindings
+set -g mode-keys vi
+set -g status-keys vi
+
+# Allow mouse to select in copy mode
+set -g mode-mouse copy-mode
+
+# Allow mouse to select pane
+set -g mouse-select-pane on
+set -g mouse-resize-pane on
+
+# Allow xterm titles in terminal window, terminal scrolling with scrollbar, and setting overrides of C-Up, C-Down, C-Left, C-Right
+set -g terminal-overrides "xterm*:XT:smcup@:rmcup@"
+
+# Set ability to capture on start and restore on exit window data when running an application
+setw -g alternate-screen on
+
+# Lower escape timing from 500ms to 50ms for quicker response to scroll-buffer access.
+set -s escape-time 50
+
+# VI-Like pane traversal
+bind h select-pane -L
+bind C-h select-pane -L
+bind j select-pane -D
+bind C-j select-pane -D
+bind k select-pane -U
+bind C-k select-pane -U
+bind l select-pane -R
+bind C-l select-pane -R
+
+# And Nice Pane Resizing
+bind-key J resize-pane -D 5
+bind-key K resize-pane -U 5
+bind-key H resize-pane -L 5
+bind-key L resize-pane -R 5
+
+# More intuitive pane splitting
+unbind %
+unbind '"'
+bind | split-window -h
+bind - split-window -v
+
+
+# Remove this eventually
+# Reload tmux config file
+bind R source-file ~/.tmux.conf \; display-message "Config file loaded: .tmux.conf"

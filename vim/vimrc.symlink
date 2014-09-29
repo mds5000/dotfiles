@@ -62,7 +62,7 @@ highlight search guibg=Yellow guifg=Black
 set noswapfile
 
 " Use the monokai theme
-colorscheme Monokai
+colorscheme monokai
 
 " Make backspace work nicely
 set backspace=indent,eol,start
@@ -155,6 +155,9 @@ au BufWritePost *.coffee silent CoffeeMake! | cwindow | redraw!
 let NERDTreeDirArrows=1
 " Open/Close NERDTree 
 nnoremap <leader>t :NERDTreeToggle<CR>
-
 nnoremap <leader>i :TagbarToggle<CR>
 
+" vim-airline: display tabline
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'powerlineish'
+let g:airline#extensions#tabline#enabled = 1

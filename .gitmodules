@@ -31,3 +31,6 @@
 [submodule "vim/vim.symlink/bundle/unite"]
 	path = vim/vim.symlink/bundle/unite
 	url = https://github.com/Shougo/unite.vim.git
+[submodule "vim/vim.symlink/bundle/vimproc"]
+	path = vim/vim.symlink/bundle/vimproc
+	url = https://github.com/Shougo/vimproc.vim.git

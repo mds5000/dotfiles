@@ -1,0 +1,160 @@
+"----------------------------------------------------------
+" Plugins
+"----------------------------------------------------------
+" If bootstrapping, run... 
+" curl -fLo ~/.nvim/autoload/plug.vim --create-dirs \
+" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+call plug#begin('~/.nvim/plugged')
+
+" Make sure you use single quotes
+"Plug 'junegunn/vim-easy-align'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+
+Plug 'bling/vim-airline'
+Plug 'edkolev/tmuxline.vim'
+
+Plug 'pangloss/vim-javascript'
+Plug 'jaxbot/browserlink.vim'
+Plug 'fatih/vim-go'
+
+Plug 'tomasr/molokai'
+
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+call plug#end()
+
+"----------------------------------------------------------
+" General Configuration
+"----------------------------------------------------------
+" Set My default <leader>
+let mapleader = "\\"
+
+" I plan on using a dark background
+set background=dark
+
+" clear any existing autocommands:
+autocmd!
+
+" History set to 250 lines 
+set history=250
+
+" Set WildMode/WildMenu, complete longest string, then
+" finish command on next tab.
+set wildmenu
+set wildmode=list:longest,full
+
+" Search as you type, and make it visible
+set incsearch
+set hlsearch
+" Use smartcase search
+set ignorecase
+set smartcase
+
+" Don't store swap files, I never use them
+set noswapfile
+
+" Use the monokai theme
+colorscheme molokai
+let g:rehash256 = 1
+
+" Make backspace work nicely
+set backspace=indent,eol,start
+
+set hidden
+
+"----------------------------------------------------------
+" User Interface
+"----------------------------------------------------------
+
+" Avoid 'Press a key to continue' messages after extrn func
+set shortmess=a
+" Show commands as they are typed
+set showcmd
+" Always show status line
+set laststatus=2
+
+" Status line: see vim-powerline
+set encoding=utf-8 " Necessary to show unicode glyphs
+"set t_Co=256 " Necessary to explicitly tell powerline term
+             " Has color support 
+             
+" Highlight syntax
+syntax on
+
+" Don't wrap lines
+set nowrap
+
+" Edit tab completion menu to show preview window
+set completeopt=menuone,longest,preview
+
+" Make the preview window 10 lines high by default
+let previewheight = 10
+
+"----------------------------------------------------------
+" Tabs and Such
+"----------------------------------------------------------
+set tabstop=4     " Tabs are 4-spaces wide
+set shiftwidth=4  " Number of spaces to use for >>, <<
+
+set smarttab      " Use shiftwidth spaces on newline
+set expandtab     " Expand inserted <TAB> chars into spaces
+set softtabstop=4 " Pressing tab or BS ins or dels 4 spaces
+
+set autoindent    " Copy indentation from previous line
+set smartindent   " Use syntax to indent correctly
+
+
+"----------------------------------------------------------
+" Key Mappings
+"----------------------------------------------------------
+" Shortcuts to start python interpreter
+" Run the current file
+nnoremap <F5> :!python %<CR>
+" Run the current file and enter interactive mode afterwords
+nnoremap <F6> :!python -i %<CR>
+
+" Shortcut to close the preview window
+"inoremap \q <ESC>:pc<CR>i
+nnoremap \q :pc
+
+" Turn line numbers on/off (TODO: make this a toggle)
+nnoremap \n :set number<CR>
+nnoremap \N :set nonumber<CR>
+
+
+
+"----------------------------------------------------------
+" Filetype Plugins
+"----------------------------------------------------------
+" Detect filetypes
+filetype on
+" Load plugins on detected filetypes
+filetype plugin on
+" Load smar indent on detected filetypes
+filetype indent on
+
+" Automatically compile .coffee files on write
+au QuickFixCmdPost * nested cwindow | redraw!
+au BufWritePost *.coffee silent make!
+
+
+"----------------------------------------------------------
+" Pluging Customization
+"----------------------------------------------------------
+" Have nerdtree use arrows instead of -|\
+let NERDTreeDirArrows=1
+" Open/Close NERDTree 
+nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <leader>i :TagbarToggle<CR>
+
+" vim-airline: display tabline
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'powerlineish'
+let g:airline#extensions#tabline#enabled = 1

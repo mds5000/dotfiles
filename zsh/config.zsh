@@ -38,3 +38,4 @@ bindkey '^[^N' newtab
 bindkey '^?' backward-delete-char
 
 export ZSH_THEME="alanpeabody"
+export COLORTERM="xterm-256color"
